@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
                         res.redirect('/');
     
                     }else{
-    
+                        //contraseña incorrecta
                         res.render('login', {
                             alert: true,
                             icon: 'error',
@@ -45,6 +45,7 @@ exports.login = async (req, res) => {
     
                         }
                 }else{
+                    //usuario incorrecta
                   res.render('login', {
                     alert: true,
                     icon: 'error',
