@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const conexion = require('../server/server');
 const {promisify} = require('util');
-const e = require('express');
+const express = require('express');
 
 
 
@@ -61,3 +61,21 @@ exports.login = async (req, res) => {
     }
 }
 
+
+exports.autenticado = async(req, res, next)=>{
+    if(req.cookie.jwt){
+        try {
+            const decodificar = await promisify(jwt.verify)(req.cookie.jwt, process.env.JWT_SECRETO)
+            conexion.query('SELECT * FROM usuario WHERE id = ?', [decodificar], (error, results)=>{
+                if(!results) return next();
+                req.nombre = results;
+                return next();
+            })
+        } catch (error) {
+            console.log(error);
+            return next();
+        }
+    }else{
+        res.redirect('/');
+    }
+}
