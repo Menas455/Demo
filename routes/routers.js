@@ -4,7 +4,7 @@ const routes = express.Router();
 const controlRutas = require('../controles/controlRutas')
 
 //Rutas de las pantallas
-routes.get('/', (req, res)=>{
+routes.get('/', controlRutas.autenticado, (req, res)=>{
     res.render('index');
 });
 

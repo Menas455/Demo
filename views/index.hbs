@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>bienvenido al inicio  {{#if ok}} <a href="/cerrar">Cerrar sesion de administrador</a> {{/if}} </h1>
+    <h1>bienvenido al inicio  {{#if admin}} <a href="/cerrar">Cerrar sesion de administrador</a> {{/if}} </h1>
 
 
-    {{#if ok}}
+    {{#if admin}}
         <p>eres administrador </p>
     {{/if}}
 

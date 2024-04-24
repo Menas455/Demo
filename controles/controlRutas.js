@@ -63,19 +63,18 @@ exports.login = async (req, res) => {
 
 
 exports.autenticado = async(req, res, next)=>{
-    if(req.cookie.jwt){
-        try {
-            const decodificar = await promisify(jwt.verify)(req.cookie.jwt, process.env.JWT_SECRETO)
-            conexion.query('SELECT * FROM usuario WHERE id = ?', [decodificar], (error, results)=>{
-                if(!results) return next();
-                req.nombre = results;
-                return next();
-            })
-        } catch (error) {
-            console.log(error);
-            return next();
-        }
-    }else{
-        res.redirect('/');
+    const token = req.cookies.jwt; 
+    if (!token) {
+        jwt.verify(token, process.env.JWT_SECRETO, (err, decoded) => {
+            if (err) {
+                res.render('index');
+                
+            } else {
+                console.log(decoded);
+                next();
+            }
+        });
+    } else {
+       res.render('index', {admin: true})
     }
-}
+} 
