@@ -78,3 +78,9 @@ exports.autenticado = async(req, res, next)=>{
        res.render('index', {admin: true})
     }
 } 
+
+
+exports.logout = async(req, res)=>{
+     res.clearCookie('jwt')
+     return res.redirect('/');
+}

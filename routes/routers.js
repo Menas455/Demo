@@ -7,7 +7,6 @@ const controlRutas = require('../controles/controlRutas')
 routes.get('/', controlRutas.autenticado, (req, res)=>{
     res.render('index');
 });
-
 routes.get('/login', (req, res)=>{
     res.render('login');
 });
@@ -15,5 +14,5 @@ routes.get('/login', (req, res)=>{
 
 //Control de rutas 
 routes.post('/login', controlRutas.login);
-
+routes.get('/cerrar', controlRutas.logout);
 module.exports = routes;
